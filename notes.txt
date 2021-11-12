@@ -1,0 +1,37 @@
+BUGUNKI DERSTEYAPACAKLARIMIZ : Yakisikli adresimiz kullancinin karsisina cikacak. ROUTE 53 ile
+Failover senaryosu hazirlayacagiz
+Sorun vasra sunu göster diyecegimiz bir sey yapacagiz.
+Bununla ilgili bilgiyi s3 den cekecek. Her seyoundaysa da cloudfronttaki normal sayfayi cekecek.
+Yeni vPC olusturacagiz 2 ppublic ve 2 private subnet olacak
+Internet gateway olacak
+Public ve private route table lar olusturacagiz
+Private e database kuaracagiz
+Private icindeki rds i ec2 instancelar ayaga kaldiracak bu ec2 lari asg'lara baglayacagiz.
+Asg yi de ELbalancera baglayacagiz
+Load balancerin onune de global capta calissin diye Cloud frontu baglayacaz
+Kullanici foto vs yuklerse s3 bucketa yukleyecek
+S3 le iletiim kurmak icin dis dunyaya erisim istenmedigi icin vpc uzerinden endpoint kuracagiz
+Eger foto yorum eklendiginde bunu da lambda fonksiyonuna baglayacaz dynomodb de bir tablo olusturacagiz girilen herseyi bu tabloda gorecegiz
+Private deki ec2 larin baz ihtiyaclari olabilir guncelleme vs bunlar private de oldugu icin ssh la da ulasamayacgiz ve bastion hocst vs icine NAT Instance kurup ec2lara baglanabilecegiz.
+
+
+Temizlik:
+1. Lambda Function
+2. RDS Subnet Group
+3. RDS
+4. CloudFront>>>>>Disable>>>>>>Delete
+5. DynamoDB
+6. R53 healthcheck
+7. R53 failover records
+8. S3 buckets (first objects)
+9. IAM roles
+10. NAT instance >>>>>terminate
+11. ALB
+12. TG
+13. LT
+14. ASG
+15. Endpoint
+16. internet gateway>>>>>detach>>>>>delete
+17. subnets
+18. private RT
+19. VPC
